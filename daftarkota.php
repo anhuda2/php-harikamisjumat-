@@ -7,7 +7,7 @@ require_once('koneksi.php');
 if (isset($_GET['pencarian'])) {
     $cari = $_GET['pencarian'];
     // panggil table data siswa
-    $ambil_data = mysqli_query($con, "SELECT a.*,k.nama_kelas FROM `data_siswa` a left JOIN  daftar_kelas b on b.no_siswa=a.no left join kelas k on k.id=b.id_kelas where a.nama like '%$cari%' ");
+    $ambil_data = mysqli_query($con, "SELECT a.*,k.nama_kelas FROM `data_siswa` a left JOIN  daftar_kelas b on b.no_siswa=a.no left join kelas k on k.id=b.id_kelas where a.nama like '%$cari%'  ");
 } else {
     // panggil seluruh table data siswa
     $ambil_data = mysqli_query($con, "SELECT a.*,k.nama_kelas FROM `data_siswa` a left JOIN daftar_kelas b on b.no_siswa=a.no left join kelas k on k.id=b.id_kelas  ");
@@ -24,9 +24,14 @@ if (isset($_GET['pencarian'])) {
     <title>Form Registrasi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
 </head>
 
-<body>
+
+<body style="font-family: 'Sora', sans-serif;">
+
 
     <?php require_once('navbar.php'); ?>
     <div class="container mt-5">
@@ -39,26 +44,26 @@ if (isset($_GET['pencarian'])) {
                 </tr>
             </thead>
             <tbody>
-            <?php
-            $query = "SELECT * FROM daftar_kota ORDER BY jumlah_penduduk DESC";
-            $result = mysqli_query($con, $query);
-            $no = 1;
-            while($row = mysqli_fetch_array($result)){
-                echo "<tr>";
-                echo "<td>". $no ."</td>";
-                echo "<td>". $row['nama_kota'] ."</td>";
-                echo "<td>". $row['jumlah_penduduk'] ."</td>";
-                echo "</tr>";
-                $no++;
-            }
-        ?>
-        </tbody>
-    </table>
-</div>
+                <?php
+                $query = "SELECT * FROM daftar_kota ORDER BY jumlah_penduduk DESC";
+                $result = mysqli_query($con, $query);
+                $no = 1;
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $no . "</td>";
+                    echo "<td>" . $row['nama_kota'] . "</td>";
+                    echo "<td>" . $row['jumlah_penduduk'] . "</td>";
+                    echo "</tr>";
+                    $no++;
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
 
 
-   
+
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
